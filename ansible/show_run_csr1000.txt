@@ -1,8 +1,8 @@
  Building configuration...
 
-Current configuration : 6739 bytes
+Current configuration : 6982 bytes
 !
-! Last configuration change at 13:14:14 UTC Fri Mar 31 2023
+! Last configuration change at 13:20:20 UTC Fri May 26 2023 by cisco
 !
 version 16.12
 service timestamps debug datetime msec
@@ -37,6 +37,12 @@ call-home
 !
 !
 ip domain name example.netacad.com
+ip dhcp excluded-address 192.168.0.1 192.168.0.50
+!
+ip dhcp pool Floor1DHCP
+ network 192.168.0.0 255.255.255.0
+ default-router 192.168.0.1 
+ dns-server 192.168.0.1 
 !
 !
 !
@@ -182,21 +188,21 @@ interface GigabitEthernet1
  no mop sysid
 !
 interface GigabitEthernet2
- no ip address
+ ip address 192.168.2.1 255.255.255.0
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet3
- no ip address
+ ip address 192.168.3.1 255.255.255.0
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet4
- no ip address
+ ip address 192.168.4.1 255.255.255.0
  shutdown
  negotiation auto
  no mop enabled

@@ -1,0 +1,23 @@
+- name: Acte Configuration Serv Web
+  hosts: serv_web
+  gather_facts: false
+  become: yes
+
+  tasks:
+    - name: Installation et mise a jour des paquets
+      ansible.builtin.apt:
+        update_cache: yes
+        name: apache2
+        state: present
+
+    - name: Copie de index.html
+      ansible.builtin.copy:
+        src: /files/site_web/index.html
+        dest: /var/www/html/
+        owner: www-data
+        mode: '0600'
+
+    - name:  Redemarage de serveurapache
+      ansible.builtin.systemd: 
+        state: restarted
+        enabled: true

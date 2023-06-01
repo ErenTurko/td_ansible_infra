@@ -1,0 +1,34 @@
+- name: PAT
+  hosts: csr1000
+  gather_facts: false
+  tasks:
+    - name: Configuration interface 1
+      cisco.ios.ios_config:
+        lines:
+        - ip nat outside
+        parents: interface g1
+    - name: Configuration interface 2
+      cisco.ios.ios_config:
+        lines:
+        - ip nat inside
+        parents: interface g2
+    - name: Configuration interface 3
+      cisco.ios.ios_config:
+        lines:
+        - ip nat inside
+        parents: interface g3
+    - name: Configuration interface 4
+      cisco.ios.ios_config:
+        lines:
+        - ip nat inside
+        parents: interface g4
+    - name: Configuration ACL
+      cisco.ios.ios_config:
+        lines: 
+        - access-list 10 permit 192.168.2.0 0.0.0.255
+        - access-list 10 permit 192.168.3.0 0.0.0.255
+        - access-list 10 permit 192.168.4.0 0.0.0.255
+    - name: Configuration NAT
+      cisco.ios.ios_config:
+        lines:
+        - ip nat inside source list 10 interface GigabitEthernet1 overload
